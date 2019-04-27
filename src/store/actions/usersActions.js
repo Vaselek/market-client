@@ -24,7 +24,7 @@ export const logoutUser = () => {
     return axios.delete('/users/sessions', config).then(
       () => {
         dispatch({type: LOGOUT_USER});
-        push('/');
+        dispatch(push('/'));
         NotificationManager.success('Logged out!');
       },
       error => {

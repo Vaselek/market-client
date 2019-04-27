@@ -61,7 +61,7 @@ export const createProduct = productData => {
       return axios.post('/products', productData, config).then(
           () => {
             dispatch(createProductSuccess());
-            push('/');
+            dispatch(push('/'));
             NotificationManager.success('You have added new product');
           },
           error => {
