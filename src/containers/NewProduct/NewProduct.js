@@ -11,9 +11,7 @@ class NewProduct extends Component {
   }
 
   createProduct = productData => {
-    this.props.onProductCreated(productData).then(() => {
-      this.props.history.push('/');
-    });
+    this.props.onProductCreated(productData)
   };
 
   render() {
@@ -23,6 +21,7 @@ class NewProduct extends Component {
         <ProductForm
           onSubmit={this.createProduct}
           categories={this.props.categories}
+          error={this.props.createError}
         />
       </Fragment>
     );
@@ -30,7 +29,8 @@ class NewProduct extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories.categories
+  categories: state.categories.categories,
+  createError: state.products.createError
 });
 
 const mapDispatchToProps = dispatch => ({

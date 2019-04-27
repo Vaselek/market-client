@@ -1,14 +1,15 @@
 import {
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCT_SUCCESS,
-    DELETE_PRODUCT_ERROR
+    DELETE_PRODUCT_ERROR, CREATE_PRODUCT_ERROR
 } from "../actions/productsActions";
 
 const initialState = {
   products: [],
   category: null,
   product: null,
-  deleteError: null
+  deleteError: null,
+  createError: null
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -19,6 +20,8 @@ const productsReducer = (state = initialState, action) => {
           return {...state, product: action.product};
     case DELETE_PRODUCT_ERROR:
           return {...state, deleteError: action.error};
+    case CREATE_PRODUCT_ERROR:
+          return {...state, createError: action.error};
     default:
       return state;
   }

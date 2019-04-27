@@ -22,6 +22,19 @@ class ProductForm extends Component {
     this.props.onSubmit(formData);
   };
 
+  getFieldError = (fieldName)  => {
+      return this.props.error && this.props.error.errors &&
+          this.props.error.errors[fieldName] && this.props.error.errors[fieldName].message;
+  };
+
+  renderErrorFor = (fieldName) => (
+      this.getFieldError(fieldName) && (
+          <div style={{color: 'red', fontSize: '10px'}}>
+              {this.getFieldError(fieldName)}
+          </div>
+      )
+  )
+
   inputChangeHandler = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -41,7 +54,7 @@ class ProductForm extends Component {
           <Label sm={2} for="category">Category</Label>
           <Col sm={10}>
             <Input
-              type="select" required
+              type="select"
               name="category" id="category"
               value={this.state.category}
               onChange={this.inputChangeHandler}
@@ -51,42 +64,46 @@ class ProductForm extends Component {
                 <option key={category._id} value={category._id}>{category.title}</option>
               ))}
             </Input>
+              { this.renderErrorFor('category')}
           </Col>
         </FormGroup>
         <FormGroup row>
           <Label sm={2} for="title">Title</Label>
           <Col sm={10}>
             <Input
-              type="text" required
+              type="text"
               name="title" id="title"
               placeholder="Enter product title"
               value={this.state.title}
               onChange={this.inputChangeHandler}
             />
+              { this.renderErrorFor('title') }
           </Col>
         </FormGroup>
         <FormGroup row>
           <Label sm={2} for="price">Price</Label>
           <Col sm={10}>
             <Input
-              type="number" required min="0"
+              type="number" min="0"
               name="price" id="price"
               placeholder="Enter product price"
               value={this.state.price}
               onChange={this.inputChangeHandler}
             />
+              { this.renderErrorFor('price') }
           </Col>
         </FormGroup>
         <FormGroup row>
           <Label sm={2} for="description">Description</Label>
           <Col sm={10}>
             <Input
-              type="textarea" required
+              type="textarea"
               name="description" id="description"
               placeholder="Enter description"
               value={this.state.description}
               onChange={this.inputChangeHandler}
             />
+              { this.renderErrorFor('description') }
           </Col>
         </FormGroup>
 
@@ -99,6 +116,7 @@ class ProductForm extends Component {
               name="image" id="image"
               onChange={this.fileChangeHandler}
             />
+              { this.renderErrorFor('image') }
           </Col>
         </FormGroup>
 
