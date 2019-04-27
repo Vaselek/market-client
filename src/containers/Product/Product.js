@@ -11,7 +11,7 @@ class Product extends Component {
     }
 
     renderDeleteBtn = () => {
-        if (this.props.user._id === this.props.product.user._id) {
+        if (this.props.user && this.props.user._id === this.props.product.user._id) {
             return <Button type="button"
                            onClick={() => this.props.deleteProduct(this.props.product._id)}>Delete</Button>
         }
