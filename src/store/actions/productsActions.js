@@ -1,5 +1,6 @@
 import axios from '../../axios-api';
 import {push} from 'connected-react-router';
+import {NotificationManager} from "react-notifications";
 
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS';
@@ -26,7 +27,9 @@ export const fetchProducts = (categoryId = null) => {
 export const fetchProduct = (productId) => {
     return dispatch => {
         return axios.get('/products/' + productId).then(
-            response => dispatch(fetchProductSuccess(response.data))
+            response => {
+              dispatch(fetchProductSuccess(response.data))
+            }
         );
     };
 };
@@ -39,6 +42,7 @@ export const deleteProduct = (productId) => {
             () => {
                 dispatch(deleteProductSuccess());
                 dispatch(push('/'));
+                NotificationManager.success('You have successfully deleted product');
             },
             error => {
                 dispatch(deleteProductError(error))
@@ -53,7 +57,10 @@ export const createProduct = productData => {
       productData.append('user', getState().users.user._id);
       const config = {headers: {'Authorization': token}}
       return axios.post('/products', productData, config).then(
-      () => dispatch(createProductSuccess())
+      () => {
+        dispatch(createProductSuccess())
+        NotificationManager.success('You have added new product');
+      }
     );
   };
 };
