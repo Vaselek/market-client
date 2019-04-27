@@ -4,8 +4,8 @@ import {NavLink} from "react-router-dom";
 
 const renderCategories = (categories, fetchProducts) => {
     return categories.map(category => (
-        <div>
-            <NavLink key={category._id} className='btn btn-link pretty-link' onClick={() => fetchProducts(category._id)} to="/">{category.title}</NavLink>
+        <div key={category._id}>
+            <NavLink className='btn btn-link pretty-link' onClick={() => fetchProducts(category._id)} to="/">{category.title}</NavLink>
         </div>
     ))
 };
